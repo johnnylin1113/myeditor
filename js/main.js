@@ -1,4 +1,4 @@
-import Storehouse from 'storehouse-js';
+import Storehouse from 'Storehouse';
 import * as monaco from 'https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/+esm';
 import { marked } from 'marked';
 import DOMPurify from 'dompurify';

@@ -2,7 +2,7 @@ import Storehouse from './storehouse-js/dist/storehouse.js';
 import * as monaco from 'https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/+esm';
 import { marked } from './marked/lib/marked.esm.js';
 import DOMPurify from './dompurify/dist/purify.es.mjs';
-import '../css/github-markdown-light.css';
+//import '../css/github-markdown-light.css';
 
 //import 'github-markdown-css/github-markdown-light.css';
 

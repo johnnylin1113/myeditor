@@ -270,10 +270,10 @@ let setupEditor = () => {
             const content = document.getElementById('output').innerHTML; // or any part you want to clone
             const dateString = getDateTimeString();
             const viewMode = labelElement.innerHTML;
-            let tableFontSize = "0.76em";
+            let tableFontSize = "0.7em";
             let newWindowWidth = "1150px";
             if (viewMode === "portrait") {
-                tableFontSize = "0.33em";
+                tableFontSize = "0.3em";
                 newWindowWidth = "810px";
             }
             const html = `
@@ -428,7 +428,7 @@ let setupEditor = () => {
             tt {
             padding: .2em .4em;
             margin: 0;
-            font-size: 85%;
+            font-size: 100%;
             white-space: break-spaces;
             background-color: #afb8c133;
             border-radius: 6px;

@@ -58,7 +58,7 @@ _You **can** combine them_
 
 ## Images
 
-![This is an alt text.](image/sample.webp "This is a sample image.")
+![This is an alt text.](https://t4.ftcdn.net/jpg/01/43/42/83/360_F_143428338_gcxw3Jcd0tJpkvvb53pfEztwtU9sxsgT.jpg "This is a sample image.")
 
 ## Links
 

@@ -427,7 +427,7 @@ let setupEditor = () => {
 
             code,
             tt {
-            padding: .2em .4em;
+            padding: .0em .4em;
             margin: 0;
             font-size: 100%;
             white-space: break-spaces;

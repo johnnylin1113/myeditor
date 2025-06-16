@@ -19,10 +19,29 @@
     <header>
         <div id="menu-items">
             <div><a href="/"><img src="image/elytone.svg" height="23"/></a></div>
+            <div class="dropdown">
+              <button class="dropbtn" id="file-menu">File</button>
+              <div class="dropdown-content">
             <div id="reset-button"><a href="#">Reset</a></div>
+                <input type="file" id="import-file" style="display: none;" />
+                <div id="import-button"><a href="#">Import</a></div>
+                <div id="export-button"><a href="#">Export</a></div>
+                <div id="meeting-note-template-button"><a href="#">Meeting Note Teamplate</a></div>
+              </div>
+            </div>
+            <div class="dropdown">
+              <button class="dropbtn" id="edit-menu">Edit</button>
+              <div class="dropdown-content">
             <div id="copy-button"><a href="#">Copy</a></div>
-            <div id="preview-button"><a href="#">Preview in</a></div>
-            <div id="switch-view-button"><a href="#">landscape</a></div>
+              </div>
+            </div>  
+            <div class="dropdown">
+              <button class="dropbtn" id="preview-menu">Preview</button>
+                <div class="dropdown-content">
+                  <div id="preview-button"><a href="#">Preview Now</a></div>
+                  <div id="switch-view-button"><a href="#">View switch: landscape</a></div>
+                </div>
+            </div>  
             <div id="sync-button"><input type="checkbox" id="sync-scroll-checkbox"><label for="sync-scroll-checkbox">Sync scroll</label></div>
         </div>
     </header>

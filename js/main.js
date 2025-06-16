@@ -568,13 +568,14 @@ let setupEditor = () => {
     2. Item 2-2
 
 ## Action Items
-* [X] Name - things to do
-* [ ] Name - another things to do`;
+- [X] Name - things to do
+- [ ] Name - another things to do`;
 
             editor.setValue(template);
 
             
             // Optional UI refresh logic (e.g. scroll or re-render preview pane)
+            /*
             document.querySelectorAll('.column').forEach((element) => {
                 element.scrollTo({ top: 0 });
             });
@@ -583,7 +584,7 @@ let setupEditor = () => {
             const preview = document.querySelector("#preview");
             if (preview && typeof marked !== 'undefined') {
                 preview.innerHTML = marked.parse(template);
-            }
+            }*/
         });
     };
 

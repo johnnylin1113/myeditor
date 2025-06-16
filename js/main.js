@@ -226,16 +226,16 @@ let setupEditor = () => {
         let labelElement = document.querySelector("#preview-button a");
         labelElement.innerHTML = "Previewing!";
         setTimeout(() => {
-            labelElement.innerHTML = "Preview in";
+            labelElement.innerHTML = "Preview Now";
         }, 1000)
     };
 
     let switchView = () => {
         let labelElement = document.querySelector("#switch-view-button a");
-        if (labelElement.innerHTML === "landscape") {
-            labelElement.innerHTML = "portrait";
+        if (labelElement.innerHTML === "View switch: landscape") {
+            labelElement.innerHTML = "View switch: portrait";
         } else {
-            labelElement.innerHTML = "landscape";
+            labelElement.innerHTML = "View switch: landscape";
         }
     };
 
@@ -270,7 +270,7 @@ let setupEditor = () => {
             notifyPreview();
             const content = document.getElementById('output').innerHTML; // or any part you want to clone
             const dateString = getDateTimeString();
-            const viewMode = labelElement.innerHTML;
+            const viewMode = labelElement.innerHTML.replace("View switch: ","");
             let tableFontSize = "0.7em";
             let newWindowWidth = "1150px";
             if (viewMode === "portrait") {
@@ -487,7 +487,105 @@ let setupEditor = () => {
         });
     };
 
+    let setupExportButton = (editor) => {
+        document.querySelector("#export-button").addEventListener('click', (event) => {
+            event.preventDefault();
+            let value = editor.getValue();
+            
+            // Create a blob with the editor value
+            let blob = new Blob([value], { type: 'text/plain' });
+            
+            // Create a temporary download link
+            let a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'editor-content.txt'; // Set desired file name
+            document.body.appendChild(a);
+            a.click();
+            
+            // Clean up
+            document.body.removeChild(a);
+            URL.revokeObjectURL(a.href);
+        });
+    };
 
+    let setupImportButton = (editor) => {
+        const fileInput = document.querySelector("#import-file");
+        const importButton = document.querySelector("#import-button");
+
+        importButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            fileInput.click(); // Trigger hidden file input
+        });
+
+        fileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const content = e.target.result;
+                editor.setValue(content); // Replace editor content with file content
+            };
+            reader.readAsText(file);
+        });
+    };
+
+    let setupMeetingNoteTemplateButton = (editor, defaultInput, confirmationMessage = "Replace current content with the meeting template?") => {
+        const templateButton = document.querySelector("#meeting-note-template-button"); // Button to insert template
+
+        templateButton.addEventListener('click', (event) => {
+            event.preventDefault();
+
+            let changed = editor.getValue() !== defaultInput;
+            if (changed) {
+                let confirmed = window.confirm(confirmationMessage);
+                if (!confirmed) return;
+            }
+
+            const template = `# Meeting Title, Location
+* **Date : DD MMM, YYYY**
+* **Time: HHMM - HHMM**
+
+## Attendees
+* Name Title (Optional) - Company
+* Name Title (Optional) - Company
+
+## Meeting Notes
+### Sub topic1
+* Item1 descreiption
+* Item2 descreiption
+    * Subitem1 of item2 description...
+    * Subitem2 of item2 description...
+
+\`highlight text\`
+**blod text**
+
+### Sub topic2
+1. Item1
+    1. Item 1-1
+2. Item2
+    1. Item 2-1
+    2. Item 2-2
+
+## Action Items
+* [X] Name - things to do
+* [ ] Name - another things to do`;
+
+            editor.setValue(template);
+
+            
+            // Optional UI refresh logic (e.g. scroll or re-render preview pane)
+            document.querySelectorAll('.column').forEach((element) => {
+                element.scrollTo({ top: 0 });
+            });
+
+            // Optional: auto-render if using preview pane
+            const preview = document.querySelector("#preview");
+            if (preview && typeof marked !== 'undefined') {
+                preview.innerHTML = marked.parse(template);
+            }
+        });
+    };
 
     // ----- local state -----
 
@@ -597,6 +695,9 @@ let setupEditor = () => {
     }
     setupResetButton();
     setupCopyButton(editor);
+    setupExportButton(editor);
+    setupImportButton(editor);
+    setupMeetingNoteTemplateButton(editor);
     setupPreviewButton();
     setupViewButton();
 

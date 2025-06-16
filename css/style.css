@@ -62,20 +62,60 @@ header a:hover {
     display: flex;
 }
 
+#file-menu {
+    margin-left: 16px;
+}
+
 #reset-button {
+    margin-left: 0px;
+}
+
+.dropbtn {
+  background-color: #333;
+  color: white;
+  padding: 0px;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #3d3d3d;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.dropdown-content a {
+  color: black;
+  padding: 4px 4px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown-content a:hover {background-color: #949494;}
+.dropdown:hover .dropdown-content {display: block;}
+
+#edit-menu {
     margin-left: 16px;
 }
 
 #copy-button {
+  margin-left: 0px;
+}
+
+#preview-menu {
     margin-left: 16px;
 }
 
 #preview-button {
-  margin-left: 16px;
+  margin-left: 0px;
 }
 
 #switch-view-button {
-  margin-left: 6px;
+  margin-left: 0px;
 }
 
 #sync-button {

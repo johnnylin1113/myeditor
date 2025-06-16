@@ -530,6 +530,49 @@ let setupEditor = () => {
         });
     };
 
+    let setupImageUploadButton = (editor) => {
+        const imageInput = document.querySelector("#add-image");
+        const imageButton = document.querySelector("#add-image-button");
+
+        imageButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            imageInput.click(); // Trigger hidden file input
+        });
+
+        imageInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (!file || !file.type.startsWith('image/')) {
+                alert('Please select a valid image file.');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const base64Data = e.target.result;
+                const markdownImage = `![${file.name}](${base64Data})`;
+
+                const selection = editor.getSelection();
+                const insertOp = {
+                    range: selection,
+                    text: markdownImage,
+                    forceMoveMarkers: true
+                };
+
+                editor.executeEdits("insert-image", [insertOp]);
+
+                // Optional: focus the editor and move cursor after inserted text
+                const endPosition = selection.getEndPosition();
+                const newPosition = {
+                    lineNumber: endPosition.lineNumber,
+                    column: endPosition.column + markdownImage.length
+                };
+                editor.setPosition(newPosition);
+                editor.focus();
+            };
+            reader.readAsDataURL(file);
+        });
+    };
+
     let setupMeetingNoteTemplateButton = (editor, defaultInput, confirmationMessage = "Replace current content with the meeting template?") => {
         const templateButton = document.querySelector("#meeting-note-template-button"); // Button to insert template
 
@@ -699,6 +742,7 @@ let setupEditor = () => {
     setupExportButton(editor);
     setupImportButton(editor);
     setupMeetingNoteTemplateButton(editor);
+    setupImageUploadButton(editor);
     setupPreviewButton();
     setupViewButton();
 

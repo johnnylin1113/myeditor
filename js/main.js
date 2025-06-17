@@ -345,6 +345,10 @@ let setupEditor = () => {
                 }
 
             }
+            img {
+                max-width: 100%;
+                max-height: 100%;
+            }
 
             .headerleft {
                 position:running(topLeft);

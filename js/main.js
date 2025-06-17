@@ -98,6 +98,36 @@ self.MonacoEnvironment = {
 }
 
 let setupEditor = () => {
+        // requied to regist for folding function
+        monaco.languages.registerFoldingRangeProvider('markdown', {
+            provideFoldingRanges: function (model, context, token) {
+                const lines = model.getLinesContent();
+                const ranges = [];
+
+                for (let i = 0; i < lines.length; i++) {
+                    if (lines[i].includes('<!-- #start of image raw -->')) {
+                        let start = i + 1;
+                        let end = start;
+
+                        // Find end
+                        while (end < lines.length && !lines[end].includes('<!-- #end of image raw -->')) {
+                            end++;
+                        }
+
+                        if (end > start) {
+                            ranges.push({
+                                start: start,
+                                end: end,
+                                kind: monaco.languages.FoldingRangeKind.Region
+                            });
+                        }
+                    }
+                }
+
+                return ranges;
+            }
+        });
+
     let editor = monaco.editor.create(document.querySelector('#editor'), {
         fontSize: 14,
             language: 'markdown',
@@ -112,8 +142,15 @@ let setupEditor = () => {
             hover: { enabled: false },
             quickSuggestions: false,
             suggestOnTriggerCharacters: false,
-            folding: false
+            //folding: false,
+            folding: true,
+            showFoldingControls: 'always',
+            foldingImportsByDefault: true,
         });
+
+        setTimeout(() => {
+            editor.getAction('editor.foldAllMarkerRegions').run();
+        }, 500);
 
         editor.onDidChangeModelContent(() => {
             let changed = editor.getValue() != defaultInput;
@@ -491,6 +528,24 @@ let setupEditor = () => {
         document.querySelector("#export-button").addEventListener('click', (event) => {
             event.preventDefault();
             let value = editor.getValue();
+
+            // Extract the first non-empty line
+            const firstLine = value.split('\n').find(line => line.trim().length > 0) || 'untitled';
+            const baseTitle = firstLine.replace(/[#*\[\]()`~]/g, '').trim().slice(0, 50); // Clean and limit
+
+            // Format current date
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = now.toLocaleString('en-US', { month: 'short' }); // "Jun", "Jul", etc.
+            const day = String(now.getDate()).padStart(2, '0');
+            const dateStr = `${year} ${month} ${day}`;
+
+            // Default filename suggestion
+            const defaultFilename = `${baseTitle} - ${dateStr}.md`;
+
+            // Ask for custom filename (you can replace prompt with a text input in UI if needed)
+            let filename = prompt("Enter file name:", defaultFilename);
+            if (!filename) return; // Cancelled
             
             // Create a blob with the editor value
             let blob = new Blob([value], { type: 'text/plain' });
@@ -498,7 +553,7 @@ let setupEditor = () => {
             // Create a temporary download link
             let a = document.createElement('a');
             a.href = URL.createObjectURL(blob);
-            a.download = 'editor-content.txt'; // Set desired file name
+            a.download = filename.endsWith('.md') ? filename : `${filename}.md`;
             document.body.appendChild(a);
             a.click();
             
@@ -507,7 +562,7 @@ let setupEditor = () => {
             URL.revokeObjectURL(a.href);
         });
     };
-
+    
     let setupImportButton = (editor) => {
         const fileInput = document.querySelector("#import-file");
         const importButton = document.querySelector("#import-button");
@@ -549,22 +604,29 @@ let setupEditor = () => {
             const reader = new FileReader();
             reader.onload = function(e) {
                 const base64Data = e.target.result;
-                const markdownImage = `![${file.name}](${base64Data})`;
+                // Prepare the full block with region comments around the image markdown
+                const markdownBlock = [
+                    '<!-- #start of image raw -->',
+                    `![${file.name}](${base64Data})`,
+                    '<!-- #end of image raw -->'
+                ].join('\n');
 
                 const selection = editor.getSelection();
+
                 const insertOp = {
                     range: selection,
-                    text: markdownImage,
+                    text: markdownBlock,
                     forceMoveMarkers: true
                 };
 
                 editor.executeEdits("insert-image", [insertOp]);
 
-                // Optional: focus the editor and move cursor after inserted text
+                // Move cursor to after inserted block
                 const endPosition = selection.getEndPosition();
+                // Because we inserted 3 lines, move lineNumber by 3 and set column to 1 (start of next line)
                 const newPosition = {
-                    lineNumber: endPosition.lineNumber,
-                    column: endPosition.column + markdownImage.length
+                    lineNumber: endPosition.lineNumber + 3,
+                    column: 1
                 };
                 editor.setPosition(newPosition);
                 editor.focus();

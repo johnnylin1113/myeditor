@@ -592,7 +592,29 @@ let setupEditor = () => {
     let setupImageUploadButton = (editor) => {
         const imageInput = document.querySelector("#upload-image");
         const imageButton = document.querySelector("#upload-image-button");
-        const imgbbApiKey = 'a4d9801643097efbb1d2f64708cac602'; // <-- Replace with your actual API key
+        const imgbbApiKey = 'a4d9801643097efbb1d2f64708cac602';
+
+        // Create overlay loader
+        const overlay = document.createElement('div');
+        overlay.innerHTML = `
+            <div style="
+                position: fixed;
+                top: 0; left: 0;
+                width: 100vw; height: 100vh;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 9999;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            ">
+                <img src="https://i.pinimg.com/originals/f8/f9/c1/f8f9c18d14f4affd79c09017591e096f.gif" alt="Loading..." style="width: 200px; height: 150px; border-radius: 20px; background: #FFFFFF;" />
+            </div>
+        `;
+        overlay.style.display = 'none';
+        document.body.appendChild(overlay);
+
+        const showOverlay = () => { overlay.style.display = 'flex'; };
+        const hideOverlay = () => { overlay.style.display = 'none'; };
 
         imageButton.addEventListener('click', (event) => {
             event.preventDefault();
@@ -608,9 +630,11 @@ let setupEditor = () => {
 
             const reader = new FileReader();
             reader.onload = async function(e) {
-                const base64Data = e.target.result.split(',')[1]; // remove data URL prefix
+                const base64Data = e.target.result.split(',')[1];
 
                 try {
+                    showOverlay();
+
                     const formData = new FormData();
                     formData.append('key', imgbbApiKey);
                     formData.append('image', base64Data);
@@ -649,6 +673,8 @@ let setupEditor = () => {
                 } catch (err) {
                     console.error('Image upload failed:', err);
                     alert('Failed to upload image. Please try again.');
+                } finally {
+                    hideOverlay();
                 }
             };
 

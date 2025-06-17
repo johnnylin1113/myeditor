@@ -590,6 +590,73 @@ let setupEditor = () => {
     };
 
     let setupImageUploadButton = (editor) => {
+        const imageInput = document.querySelector("#upload-image");
+        const imageButton = document.querySelector("#upload-image-button");
+        const imgbbApiKey = 'a4d9801643097efbb1d2f64708cac602'; // <-- Replace with your actual API key
+
+        imageButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            imageInput.click();
+        });
+
+        imageInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (!file || !file.type.startsWith('image/')) {
+                alert('Please select a valid image file.');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = async function(e) {
+                const base64Data = e.target.result.split(',')[1]; // remove data URL prefix
+
+                try {
+                    const formData = new FormData();
+                    formData.append('key', imgbbApiKey);
+                    formData.append('image', base64Data);
+
+                    const response = await fetch('https://api.imgbb.com/1/upload', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    const result = await response.json();
+
+                    if (!result.success) {
+                        throw new Error('Upload failed');
+                    }
+
+                    const imageUrl = result.data.url;
+                    const markdownImage = `![${file.name}](${imageUrl})`;
+
+                    const selection = editor.getSelection();
+                    const insertOp = {
+                        range: selection,
+                        text: markdownImage,
+                        forceMoveMarkers: true
+                    };
+
+                    editor.executeEdits("insert-image", [insertOp]);
+
+                    const endPosition = selection.getEndPosition();
+                    const newPosition = {
+                        lineNumber: endPosition.lineNumber,
+                        column: endPosition.column + markdownImage.length
+                    };
+                    editor.setPosition(newPosition);
+                    editor.focus();
+
+                } catch (err) {
+                    console.error('Image upload failed:', err);
+                    alert('Failed to upload image. Please try again.');
+                }
+            };
+
+            reader.readAsDataURL(file);
+        });
+    };
+    
+    let setupImageAddButton = (editor) => {
         const imageInput = document.querySelector("#add-image");
         const imageButton = document.querySelector("#add-image-button");
 
@@ -809,6 +876,7 @@ let setupEditor = () => {
     setupImportButton(editor);
     setupMeetingNoteTemplateButton(editor);
     setupImageUploadButton(editor);
+    setupImageAddButton(editor);
     setupPreviewButton();
     setupViewButton();
 

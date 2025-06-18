@@ -651,7 +651,8 @@ let setupEditor = () => {
                     }
 
                     const imageUrl = result.data.url;
-                    const markdownImage = `![${file.name}](${imageUrl})`;
+                    //const markdownImage = `![${file.name}](${imageUrl})`;
+                    const markdownImage = `<img src="${imageUrl}" alt="${file.name}" width="auto">`;
 
                     const selection = editor.getSelection();
                     const insertOp = {

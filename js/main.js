@@ -327,7 +327,7 @@ let setupEditor = () => {
                 margin-top: 2.8cm;
                 margin-left: 1.8cm;
                 margin-right: 1.8cm;
-                margin-bottom: 1.6cm;
+                margin-bottom: 2.5cm;
                 @top-left {
                     width: 200px;
                     content: " " url("./image/header.svg");
@@ -374,7 +374,8 @@ let setupEditor = () => {
             h1 {
                 margin-top: 24px;
                 margin-bottom: 16px;
-                font-weight: 300;
+                font-size: 20px;
+                font-weight: 200;
                 line-height: 1.25;
                 color: #F79646;
             }
@@ -382,18 +383,41 @@ let setupEditor = () => {
             h2 {
                 margin-top: 24px;
                 margin-bottom: 16px;
-                font-weight: 500;
+                font-size: 14px;
+                font-weight: 400;
                 line-height: 1.25;
                 color: #F79646;
             }
             
-            h3,
-            h4,
-            h5,
+            h3 {
+                margin-top: 24px;
+                margin-bottom: 16px;
+                font-size: 12px;
+                font-weight: 600;
+                line-height: 1.25;
+                color:rgb(0, 0, 0);
+            }
+            h4 {
+                margin-top: 24px;
+                margin-bottom: 16px;
+                font-size: 12px;
+                font-weight: 400;
+                line-height: 1.25;
+                color:rgb(0, 0, 0);
+            }
+            h5 {
+                margin-top: 24px;
+                margin-bottom: 16px;
+                font-size: 8px;
+                font-weight: 600;
+                line-height: 1.25;
+                color:rgb(0, 0, 0);
+            }
             h6 {
                 margin-top: 24px;
                 margin-bottom: 16px;
-                font-weight: 500;
+                font-size: 8px;
+                font-weight: 400;
                 line-height: 1.25;
                 color:rgb(0, 0, 0);
             }
@@ -403,7 +427,7 @@ let setupEditor = () => {
             }
 
             body { 
-                font-family: "Noto Sans","Noto Sans TC",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+                font-family: "Noto Sans","Noto Sans TC";
                 -webkit-print-color-adjust:exact !important;
                 print-color-adjust:exact !important;
             }
@@ -458,22 +482,25 @@ let setupEditor = () => {
             kbd,
             pre,
             samp {
-            font-size: 1em;
+            font-size: 10px;
             }
             tt,
             code,
             samp {
-            font-size: 12px;
+            font-size: 10px;
             }
 
             code,
             tt {
-            padding: .0em .4em;
+            padding: .2em .4em;
             margin: 0;
-            font-size: 100%;
+            font-size: 14px;
+            font-weight: 500;
             white-space: break-spaces;
             background-color: #afb8c133;
             border-radius: 6px;
+            font-family: "Noto Sans","Noto Sans TC";
+
             }
 
             code br,

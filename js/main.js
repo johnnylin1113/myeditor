@@ -418,6 +418,7 @@ let setupEditor = () => {
                 margin-bottom: 16px;
                 font-size: 8px;
                 font-weight: 400;
+                font-style: italic;
                 line-height: 1.25;
                 color:rgb(0, 0, 0);
             }

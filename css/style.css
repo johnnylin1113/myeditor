@@ -106,6 +106,10 @@ header a:hover {
   margin-left: 0px;
 }
 
+#insert-menu {
+    margin-left: 16px;
+}
+
 #preview-menu {
     margin-left: 16px;
 }

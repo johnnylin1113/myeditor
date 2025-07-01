@@ -304,19 +304,12 @@ let setupEditor = () => {
         let labelElement = document.querySelector("#switch-view-button a");
         document.querySelector("#preview-button").addEventListener('click', (event) => {
             event.preventDefault();
-            //notifyPreview();
             const content = document.getElementById('output').innerHTML; // or any part you want to clone
             const dateString = getTitleName(editor);
             //const viewMode = labelElement.innerHTML.replace("View switch: ","");
             const viewMode = "portrait";
-            // landscape
-            let tableFontSize = "0.7em";
-            let newWindowWidth = "1150px";
-            // portrait
-            if (viewMode === "portrait") {
-                tableFontSize = "0.3em";
-                newWindowWidth = "810px";
-            }
+            let tableFontSize = "10px";
+            let newWindowWidth = "810px";
             const html = generatePDFHtml(dateString, viewMode, tableFontSize, content);
         
             const settingStr = `width=${newWindowWidth},height=auto`
@@ -332,23 +325,18 @@ let setupEditor = () => {
             
         });
     };
+
     let setupLPreviewButton = (editor) => {
         let labelElement = document.querySelector("#switch-view-button a");
         document.querySelector("#l-preview-button").addEventListener('click', (event) => {
             event.preventDefault();
-            //notifyPreview();
             const content = document.getElementById('output').innerHTML; // or any part you want to clone
             const dateString = getTitleName(editor);
             //const viewMode = labelElement.innerHTML.replace("View switch: ","");
             const viewMode = "landscape";
             // landscape
-            let tableFontSize = "0.7em";
+            let tableFontSize = "12px";
             let newWindowWidth = "1150px";
-            // portrait
-            if (viewMode === "portrait") {
-                tableFontSize = "0.3em";
-                newWindowWidth = "810px";
-            }
             const html = generatePDFHtml(dateString, viewMode, tableFontSize, content);
         
             const settingStr = `width=${newWindowWidth},height=auto`
@@ -379,17 +367,19 @@ let setupEditor = () => {
                 margin-top: 2.8cm;
                 margin-left: 1.8cm;
                 margin-right: 1.8cm;
-                margin-bottom: 2.5cm;
+                margin-bottom: 2.2cm;
                 @top-left {
                     width: 200px;
                     content: " " url("./image/header.svg");
                     vertical-align: bottom;
                 }
                 @bottom-right {
+                    padding-top:20px;
                     content: "Elytone 2025";
                     content: " " url("./image/footer.svg");
                 }
                 @bottom-left {
+                    padding-top:20px;
                     content: "Page " counter(page) " of " counter(pages);
                     font-size: 9pt;
                     "Noto Sans","Noto Sans TC";
@@ -590,12 +580,6 @@ let setupEditor = () => {
         });
     };
 
-    let setupViewButton = () => {
-        document.querySelector("#switch-view-button").addEventListener('click', (event) => {
-            event.preventDefault();
-            switchView();
-        });
-    };
 
     let getTitleName = (editor) => {
         let value = editor.getValue();
@@ -981,7 +965,7 @@ let setupEditor = () => {
     setupImageAddButton(editor);
     setupPreviewButton(editor);
     setupLPreviewButton(editor);
-    setupViewButton();
+
 
     let scrollBarSettings = loadScrollBarSettings() || false;
     initScrollBarSync(scrollBarSettings);

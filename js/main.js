@@ -300,26 +300,78 @@ let setupEditor = () => {
     return `${year}${month}${day}_${hours}${minutes}`;
     }
   
-    let setupPreviewButton = () => {
+    let setupPreviewButton = (editor) => {
         let labelElement = document.querySelector("#switch-view-button a");
         document.querySelector("#preview-button").addEventListener('click', (event) => {
             event.preventDefault();
             notifyPreview();
             const content = document.getElementById('output').innerHTML; // or any part you want to clone
-            const dateString = getDateTimeString();
-            const viewMode = labelElement.innerHTML.replace("View switch: ","");
+            const dateString = getTitleName(editor);
+            //const viewMode = labelElement.innerHTML.replace("View switch: ","");
+            const viewMode = "portrait";
+            // landscape
             let tableFontSize = "0.7em";
             let newWindowWidth = "1150px";
+            // portrait
             if (viewMode === "portrait") {
                 tableFontSize = "0.3em";
                 newWindowWidth = "810px";
             }
-            const html = `
+            const html = generatePDFHtml(dateString, viewMode, tableFontSize, content);
+        
+            const settingStr = `width=${newWindowWidth},height=auto`
+            const newWindow = window.open('', '_blank', settingStr); // Set desired width and height
+            if (newWindow) {
+                //newWindow.open()
+                newWindow.document.writeln(html);
+                //alert(html);
+                newWindow.document.close();    
+            } else {
+                alert("Popup blocked. Please allow popups for this site.");
+            }
+            
+        });
+    };
+    let setupLPreviewButton = (editor) => {
+        let labelElement = document.querySelector("#switch-view-button a");
+        document.querySelector("#l-preview-button").addEventListener('click', (event) => {
+            event.preventDefault();
+            notifyPreview();
+            const content = document.getElementById('output').innerHTML; // or any part you want to clone
+            const dateString = getTitleName(editor);
+            //const viewMode = labelElement.innerHTML.replace("View switch: ","");
+            const viewMode = "landscape";
+            // landscape
+            let tableFontSize = "0.7em";
+            let newWindowWidth = "1150px";
+            // portrait
+            if (viewMode === "portrait") {
+                tableFontSize = "0.3em";
+                newWindowWidth = "810px";
+            }
+            const html = generatePDFHtml(dateString, viewMode, tableFontSize, content);
+        
+            const settingStr = `width=${newWindowWidth},height=auto`
+            const newWindow = window.open('', '_blank', settingStr); // Set desired width and height
+            if (newWindow) {
+                //newWindow.open()
+                newWindow.document.writeln(html);
+                //alert(html);
+                newWindow.document.close();    
+            } else {
+                alert("Popup blocked. Please allow popups for this site.");
+            }
+            
+        });
+    };
+
+    let generatePDFHtml = (dateString, viewMode, tableFontSize, content) => {
+            return `
 <!DOCTYPE html>
 <html>
 <head>
-    <title>PDF_${dateString}</title>
-    <script src="./js/paged.polyfill.js"></script>
+    <title>${dateString}</title>
+    <script src="public/js/paged.polyfill.js"></script>
     <style>
         @media print,screen {
             @page {
@@ -523,19 +575,7 @@ let setupEditor = () => {
     </body>
     </html>
 `;
-            const settingStr = `width=${newWindowWidth},height=auto`
-            const newWindow = window.open('', '_blank', settingStr); // Set desired width and height
-            if (newWindow) {
-                //newWindow.open()
-                newWindow.document.writeln(html);
-                //alert(html);
-                newWindow.document.close();    
-            } else {
-                alert("Popup blocked. Please allow popups for this site.");
-            }
-            
-        });
-    };
+    }
 
     let setupCopyButton = (editor) => {
         document.querySelector("#copy-button").addEventListener('click', (event) => {
@@ -557,9 +597,7 @@ let setupEditor = () => {
         });
     };
 
-    let setupExportButton = (editor) => {
-        document.querySelector("#export-button").addEventListener('click', (event) => {
-            event.preventDefault();
+    let getTitleName = (editor) => {
             let value = editor.getValue();
 
             // Extract the first non-empty line
@@ -575,7 +613,14 @@ let setupEditor = () => {
 
             // Default filename suggestion
             const defaultFilename = `${baseTitle} - ${dateStr}.md`;
+        return defaultFilename;
+    }
 
+    let setupExportButton = (editor) => {
+        document.querySelector("#export-button").addEventListener('click', (event) => {
+            event.preventDefault();
+
+            const defaultFilename = getTitleName(editor);
             // Ask for custom filename (you can replace prompt with a text input in UI if needed)
             let filename = prompt("Enter file name:", defaultFilename);
             if (!filename) return; // Cancelled
@@ -933,7 +978,8 @@ let setupEditor = () => {
     setupMeetingNoteTemplateButton(editor);
     setupImageUploadButton(editor);
     setupImageAddButton(editor);
-    setupPreviewButton();
+    setupPreviewButton(editor);
+    setupLPreviewButton(editor);
     setupViewButton();
 
     let scrollBarSettings = loadScrollBarSettings() || false;

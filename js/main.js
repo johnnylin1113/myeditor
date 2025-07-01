@@ -371,7 +371,7 @@ let setupEditor = () => {
 <html>
 <head>
     <title>${dateString}</title>
-    <script src="public/js/paged.polyfill.js"></script>
+    <script src="./js/paged.polyfill.js"></script>
     <style>
         @media print,screen {
             @page {

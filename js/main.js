@@ -304,7 +304,7 @@ let setupEditor = () => {
         let labelElement = document.querySelector("#switch-view-button a");
         document.querySelector("#preview-button").addEventListener('click', (event) => {
             event.preventDefault();
-            notifyPreview();
+            //notifyPreview();
             const content = document.getElementById('output').innerHTML; // or any part you want to clone
             const dateString = getTitleName(editor);
             //const viewMode = labelElement.innerHTML.replace("View switch: ","");
@@ -336,7 +336,7 @@ let setupEditor = () => {
         let labelElement = document.querySelector("#switch-view-button a");
         document.querySelector("#l-preview-button").addEventListener('click', (event) => {
             event.preventDefault();
-            notifyPreview();
+            //notifyPreview();
             const content = document.getElementById('output').innerHTML; // or any part you want to clone
             const dateString = getTitleName(editor);
             //const viewMode = labelElement.innerHTML.replace("View switch: ","");

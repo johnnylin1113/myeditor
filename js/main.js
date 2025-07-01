@@ -598,27 +598,28 @@ let setupEditor = () => {
     };
 
     let getTitleName = (editor) => {
-            let value = editor.getValue();
+        let value = editor.getValue();
 
-            // Extract the first non-empty line
-            const firstLine = value.split('\n').find(line => line.trim().length > 0) || 'untitled';
-            const baseTitle = firstLine.replace(/[#*\[\]()`~]/g, '').trim().slice(0, 50); // Clean and limit
+        // Extract the first non-empty line
+        const firstLine = value.split('\n').find(line => line.trim().length > 0) || 'untitled';
+        const baseTitle = firstLine.replace(/[#*\[\]()`~]/g, '').trim().slice(0, 50); // Clean and limit
 
-            // Format current date
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = now.toLocaleString('en-US', { month: 'short' }); // "Jun", "Jul", etc.
-            const day = String(now.getDate()).padStart(2, '0');
-            const dateStr = `${year} ${month} ${day}`;
+        // Format current date
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = now.toLocaleString('en-US', { month: 'short' }); // "Jun", "Jul", etc.
+        const day = String(now.getDate()).padStart(2, '0');
+        const dateStr = `${year} ${month} ${day}`;
 
-            // Default filename suggestion
-            const defaultFilename = `${baseTitle} - ${dateStr}.md`;
+        // Default filename suggestion
+        const defaultFilename = `${baseTitle} - ${dateStr}`;
         return defaultFilename;
     }
 
     let setupExportButton = (editor) => {
         document.querySelector("#export-button").addEventListener('click', (event) => {
             event.preventDefault();
+            let value = editor.getValue();
 
             const defaultFilename = getTitleName(editor);
             // Ask for custom filename (you can replace prompt with a text input in UI if needed)

@@ -383,7 +383,7 @@ let setupEditor = () => {
             h2 {
                 margin-top: 24px;
                 margin-bottom: 16px;
-                font-size: 14px;
+                font-size: 16px;
                 font-weight: 400;
                 line-height: 1.25;
                 color: #F79646;
@@ -431,6 +431,7 @@ let setupEditor = () => {
                 font-family: "Noto Sans","Noto Sans TC";
                 -webkit-print-color-adjust:exact !important;
                 print-color-adjust:exact !important;
+                font-size: 10px;
             }
             
             
@@ -495,7 +496,7 @@ let setupEditor = () => {
             tt {
             padding: .2em .4em;
             margin: 0;
-            font-size: 14px;
+            font-size: 10px;
             font-weight: 500;
             white-space: break-spaces;
             background-color: #afb8c133;

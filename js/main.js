@@ -375,9 +375,16 @@ let setupEditor = () => {
                 }
                 @bottom-right {
                     padding-top:20px;
+                    padding-right:22px;
                     font-size: 8pt;
-                    content: "Elytone 2025";
-                    content: " " url("./image/footer.svg");
+                    content: "© Elytone 2025";
+                    vertical-align: top;
+                    display: inline-block;
+                    width: 120px;
+                    height: 120px;
+                    background-image: url("./image/footer.svg");
+                    background-repeat: no-repeat;
+                    background-size: 120px;               
                 }
                 @bottom-left {
                     padding-top:20px;
@@ -405,7 +412,7 @@ let setupEditor = () => {
             .serif,
             .sansserif,
             .monospace{
-              font-family: "Noto Sans", sans-serif;
+              font-family: "Noto Sans TC", sans-serif;
             }
             
             hr {
@@ -471,7 +478,7 @@ let setupEditor = () => {
             }
 
             body { 
-                font-family: "Noto Sans", sans-serif;
+                font-family: "Noto Sans TC", sans-serif;
                 -webkit-print-color-adjust:exact !important;
                 print-color-adjust:exact !important;
                 font-size: 10px;
@@ -544,7 +551,7 @@ let setupEditor = () => {
             white-space: break-spaces;
             background-color: #afb8c133;
             border-radius: 6px;
-            font-family: "Noto Sans", sans-serif;
+            font-family: "Noto Sans TC", sans-serif;
 
             }
 

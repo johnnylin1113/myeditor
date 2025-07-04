@@ -6,7 +6,7 @@
   margin: 0;
   color: #1f2328;
   background-color: #ffffff;
-  font-family: "Noto Sans", sans-serif;
+  font-family: "Noto Sans TC", sans-serif;
   font-size: 16px;
   line-height: 1.5;
   word-wrap: break-word;
@@ -113,7 +113,7 @@
 .markdown-body kbd,
 .markdown-body pre,
 .markdown-body samp {
-  font-family: "Noto Sans", sans-serif;
+  font-family: "Noto Sans TC", sans-serif;
   font-size: 1em;
 }
 
@@ -359,7 +359,7 @@
 .markdown-body tt,
 .markdown-body code,
 .markdown-body samp {
-  font-family: "Noto Sans", sans-serif;
+  font-family: "Noto Sans TC", sans-serif;
   font-size: 1em;
 }
 

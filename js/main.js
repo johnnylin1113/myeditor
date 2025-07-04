@@ -375,14 +375,15 @@ let setupEditor = () => {
                 }
                 @bottom-right {
                     padding-top:20px;
+                    font-size: 8pt;
                     content: "Elytone 2025";
                     content: " " url("./image/footer.svg");
                 }
                 @bottom-left {
                     padding-top:20px;
+                    font-style: "Noto Sans";
+                    font-size: 8pt;
                     content: "Page " counter(page) " of " counter(pages);
-                    font-size: 9pt;
-                    "Noto Sans","Noto Sans TC";
                     vertical-align: top;
                 }
 
@@ -404,7 +405,7 @@ let setupEditor = () => {
             .serif,
             .sansserif,
             .monospace{
-              font-family: "Noto Sans","Noto Sans TC";
+              font-family: "Noto Sans", sans-serif;
             }
             
             hr {
@@ -425,7 +426,7 @@ let setupEditor = () => {
             h2 {
                 margin-top: 24px;
                 margin-bottom: 16px;
-                font-size: 16px;
+                font-size: 14px;
                 font-weight: 400;
                 line-height: 1.25;
                 color: #F79646;
@@ -470,7 +471,7 @@ let setupEditor = () => {
             }
 
             body { 
-                font-family: "Noto Sans","Noto Sans TC";
+                font-family: "Noto Sans", sans-serif;
                 -webkit-print-color-adjust:exact !important;
                 print-color-adjust:exact !important;
                 font-size: 10px;
@@ -543,7 +544,7 @@ let setupEditor = () => {
             white-space: break-spaces;
             background-color: #afb8c133;
             border-radius: 6px;
-            font-family: "Noto Sans","Noto Sans TC";
+            font-family: "Noto Sans", sans-serif;
 
             }
 
@@ -555,7 +556,7 @@ let setupEditor = () => {
         }   
         </style>    
     </head>
-    <div id="header" style="font-size:9pt">
+    <div id="header" style="font-size:8pt; font-style: "Noto Sans"">
              Elytone Electronic Co., Ltd<br>  No. 218, Section 2, Zhongzheng Rd, Sanxia District, New Taipei City, 23742 Taiwan
     </div> 
     <body>

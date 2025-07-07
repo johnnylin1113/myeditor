@@ -368,6 +368,8 @@ let setupEditor = () => {
                 margin-left: 1.8cm;
                 margin-right: 1.8cm;
                 margin-bottom: 2.2cm;
+                padding-top: 20px;
+
                 @top-left {
                     width: 200px;
                     content: " " url("./image/header.svg");
@@ -394,6 +396,9 @@ let setupEditor = () => {
                     vertical-align: top;
                 }
 
+            }
+            @page:nth(1) {
+                padding-top: 0;
             }
             img {
                 max-width: 100%;

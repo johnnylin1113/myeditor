@@ -529,6 +529,32 @@ let setupEditor = () => {
             max-width: 100%;
             overflow: auto;
             }
+            
+            table th {
+               font-weight: 600;
+            }
+
+            pre {
+                padding: 16px;
+                overflow: auto;
+                font-size: 85%;
+                line-height: 1.45;
+                color: #1f2328;
+                background-color: #f6f8fa;
+                border-radius: 6px;
+            }
+            pre code {
+                display: inline;
+                max-width: auto;
+                padding: 0;
+                margin: 0;
+                overflow: visible;
+                line-height: inherit;
+                word-wrap: normal;
+                background-color: transparent;
+                border: 0;
+                font-weight: 500;
+            }
 
             code,
             kbd,

@@ -379,7 +379,7 @@ let setupEditor = () => {
                     padding-top:20px;
                     padding-right:22px;
                     font-size: 8pt;
-                    content: "© Elytone 2025";
+                    content: "© Elytone 2025 V1";
                     vertical-align: top;
                     display: inline-block;
                     width: 120px;

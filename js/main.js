@@ -439,7 +439,7 @@ let setupEditor = () => {
                 margin-bottom: 16px;
                 font-size: 2em;
                 font-weight: 200;
-                line-height: 0.5;
+                line-height: 1;
                 color: #F79646;
             }
             
@@ -448,7 +448,7 @@ let setupEditor = () => {
                 margin-bottom: 16px;
                 font-size: 1.4em;
                 font-weight: 400;
-                line-height: 0.5;
+                line-height: 1;
                 color: #F79646;
             }
             
@@ -457,7 +457,7 @@ let setupEditor = () => {
                 margin-bottom: 16px;
                 font-size: 1.2em;
                 font-weight: 600;
-                line-height: 0.5;
+                line-height: 1;
                 color:rgb(0, 0, 0);
             }
             h4 {
@@ -465,7 +465,7 @@ let setupEditor = () => {
                 margin-bottom: 16px;
                 font-size: 1.2em;
                 font-weight: 400;
-                line-height: 0.5;
+                line-height: 1;
                 color:rgb(0, 0, 0);
             }
             h5 {
@@ -473,7 +473,7 @@ let setupEditor = () => {
                 margin-bottom: 16px;
                 font-size: 0.8em;
                 font-weight: 600;
-                line-height: 0.5;
+                line-height: 1;
                 color:rgb(0, 0, 0);
             }
             h6 {
@@ -482,7 +482,7 @@ let setupEditor = () => {
                 font-size: 0.8em;
                 font-weight: 400;
                 font-style: italic;
-                line-height: 0.5;
+                line-height: 1;
                 color:rgb(0, 0, 0);
             }
 

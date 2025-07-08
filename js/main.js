@@ -802,9 +802,18 @@ let setupEditor = () => {
             reader.onload = function(e) {
                 const base64Data = e.target.result;
                 // Prepare the full block with region comments around the image markdown
+                /*
                 const markdownBlock = [
                     '<!-- #start of image raw -->',
                     `![${file.name}](${base64Data})`,
+                    '<!-- #end of image raw -->'
+                ].join('\n');
+                */
+
+                const markdownBlock = [
+                    '<!-- #start of image raw -->',
+                    `<div style="text-align:center"><img width="auto" title="${file.name}" src="${base64Data}`,
+                    `"/></div>`,
                     '<!-- #end of image raw -->'
                 ].join('\n');
 

@@ -356,6 +356,7 @@ let setupEditor = () => {
     let generatePDFHtml = (dateString, viewMode, tableFontSize, content) => {
             return `
 <!DOCTYPE html>
+<! -- 250708 V3-->
 <html>
 <head>
     <title>${dateString}</title>
@@ -379,7 +380,7 @@ let setupEditor = () => {
                     padding-top:20px;
                     padding-right:22px;
                     font-size: 8pt;
-                    content: "© Elytone 2025 V2";
+                    content: "© Elytone 2025";
                     vertical-align: top;
                     display: inline-block;
                     width: 120px;
@@ -437,7 +438,7 @@ let setupEditor = () => {
             }
 
             h1 {
-                margin-top: 15px;
+                margin-top: 10px;
                 margin-bottom: 24px;
                 padding-bottom: .3em;
                 font-size: 2em;
@@ -447,7 +448,7 @@ let setupEditor = () => {
             }
             
             h2 {
-                margin-top: 15px;
+                margin-top: 10px;
                 margin-bottom: 20px;
                 font-size: 1.4em;
                 font-weight: 400;
@@ -456,7 +457,7 @@ let setupEditor = () => {
             }
             
             h3 {
-                margin-top: 15px;
+                margin-top: 10px;
                 margin-bottom: 8px;
                 font-size: 1.2em;
                 font-weight: 600;
@@ -464,7 +465,7 @@ let setupEditor = () => {
                 color:rgb(0, 0, 0);
             }
             h4 {
-                margin-top: 15px;
+                margin-top: 10px;
                 margin-bottom: 8px;
                 font-size: 1.2em;
                 font-weight: 400;
@@ -472,7 +473,7 @@ let setupEditor = () => {
                 color:rgb(0, 0, 0);
             }
             h5 {
-                margin-top: 15px;
+                margin-top: 10px;
                 margin-bottom: 8px;
                 font-size: 0.8em;
                 font-weight: 600;
@@ -480,7 +481,7 @@ let setupEditor = () => {
                 color:rgb(0, 0, 0);
             }
             h6 {
-                margin-top: 15px;
+                margin-top: 10px;
                 margin-bottom: 8px;
                 font-size: 0.8em;
                 font-weight: 400;

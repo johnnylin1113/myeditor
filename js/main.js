@@ -356,7 +356,7 @@ let setupEditor = () => {
     let generatePDFHtml = (dateString, viewMode, tableFontSize, content) => {
             return `
 <!DOCTYPE html>
-<! -- 250708 V3-->
+<! -- 250708 V4-->
 <html>
 <head>
     <title>${dateString}</title>
@@ -449,7 +449,7 @@ let setupEditor = () => {
             
             h2 {
                 margin-top: 10px;
-                margin-bottom: 20px;
+                margin-bottom: 10px;
                 font-size: 1.4em;
                 font-weight: 400;
                 line-height: 1;
@@ -458,7 +458,7 @@ let setupEditor = () => {
             
             h3 {
                 margin-top: 10px;
-                margin-bottom: 8px;
+                margin-bottom: 5px;
                 font-size: 1.2em;
                 font-weight: 600;
                 line-height: 1;
@@ -466,7 +466,7 @@ let setupEditor = () => {
             }
             h4 {
                 margin-top: 10px;
-                margin-bottom: 8px;
+                margin-bottom: 5px;
                 font-size: 1.2em;
                 font-weight: 400;
                 line-height: 1;
@@ -474,7 +474,7 @@ let setupEditor = () => {
             }
             h5 {
                 margin-top: 10px;
-                margin-bottom: 8px;
+                margin-bottom: 5px;
                 font-size: 0.8em;
                 font-weight: 600;
                 line-height: 1;
@@ -482,7 +482,7 @@ let setupEditor = () => {
             }
             h6 {
                 margin-top: 10px;
-                margin-bottom: 8px;
+                margin-bottom: 5px;
                 font-size: 0.8em;
                 font-weight: 400;
                 font-style: italic;

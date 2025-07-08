@@ -437,8 +437,8 @@ let setupEditor = () => {
             }
 
             h1 {
-                margin-top: 24px;
-                margin-bottom: 36px;
+                margin-top: 20px;
+                margin-bottom: 24px;
                 padding-bottom: .3em;
                 font-size: 2em;
                 font-weight: 200;
@@ -447,8 +447,8 @@ let setupEditor = () => {
             }
             
             h2 {
-                margin-top: 24px;
-                margin-bottom: 24px;
+                margin-top: 20px;
+                margin-bottom: 20px;
                 font-size: 1.4em;
                 font-weight: 400;
                 line-height: 1;
@@ -456,7 +456,7 @@ let setupEditor = () => {
             }
             
             h3 {
-                margin-top: 24px;
+                margin-top: 20px;
                 margin-bottom: 8px;
                 font-size: 1.2em;
                 font-weight: 600;
@@ -464,7 +464,7 @@ let setupEditor = () => {
                 color:rgb(0, 0, 0);
             }
             h4 {
-                margin-top: 24px;
+                margin-top: 20px;
                 margin-bottom: 8px;
                 font-size: 1.2em;
                 font-weight: 400;
@@ -472,7 +472,7 @@ let setupEditor = () => {
                 color:rgb(0, 0, 0);
             }
             h5 {
-                margin-top: 24px;
+                margin-top: 20px;
                 margin-bottom: 8px;
                 font-size: 0.8em;
                 font-weight: 600;
@@ -480,7 +480,7 @@ let setupEditor = () => {
                 color:rgb(0, 0, 0);
             }
             h6 {
-                margin-top: 24px;
+                margin-top: 20px;
                 margin-bottom: 8px;
                 font-size: 0.8em;
                 font-weight: 400;

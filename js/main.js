@@ -479,7 +479,7 @@ let setupEditor = () => {
             }
 
             table th {
-            font-weight: 400;
+                font-weight: 400;
             }
 
             body { 
@@ -491,9 +491,9 @@ let setupEditor = () => {
             
             
             table th,
-             table td {
-            padding: 6px 13px;
-            border: 1px solid #d0d7de;
+            table td {
+                padding: 6px 13px;
+                border: 1px solid #d0d7de;
             }
 
             table td>:last-child {
@@ -506,33 +506,33 @@ let setupEditor = () => {
             }
 
             table tr:nth-child(2n) {
-            background-color: #f6f8fa;
+                background-color: #f6f8fa;
             }
 
             table img {
-            background-color: transparent;
+                background-color: transparent;
             }
 
             hr::before {
-            display: table;
-            content: "";
+                display: table;
+                content: "";
             }
 
             hr::after {
-            display: table;
-            clear: both;
-            content: "";
+                display: table;
+                clear: both;
+                content: "";
             }
 
             table {
-            font-size:${tableFontSize};
-            white-space: nowrap;
-            border-spacing: 0;
-            border-collapse: collapse;
-            display: block;
-            width: 100%;
-            max-width: 100%;
-            overflow: auto;
+                font-size:${tableFontSize};
+                white-space: nowrap;
+                border-spacing: 0;
+                border-collapse: collapse;
+                display: block;
+                width: 100%;
+                max-width: 100%;
+                overflow: auto;
             }
             
             table th {
@@ -565,30 +565,31 @@ let setupEditor = () => {
             kbd,
             pre,
             samp {
-            font-size: 10px;
+                font-size: 10px;
             }
+
             tt,
             code,
             samp {
-            font-size: 10px;
+                font-size: 10px;
             }
 
             code,
             tt {
-            padding: .2em .4em;
-            margin: 0;
-            font-size: 10px;
-            font-weight: 500;
-            white-space: break-spaces;
-            background-color: #afb8c133;
-            border-radius: 6px;
-            font-family: "Noto Sans TC", sans-serif;
-
+                padding: .2em .4em;
+                margin: 0;
+                font-size: 10px;
+                font-weight: 500;
+                white-space: break-spaces;
+                background-color: #afb8c133;
+                border-radius: 6px;
+                font-family: "Noto Sans TC", sans-serif;
+                line-height: 1.9;
             }
 
             code br,
             tt br {
-            display: none;
+                display: none;
             }
 
         }   

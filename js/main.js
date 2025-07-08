@@ -401,11 +401,13 @@ let setupEditor = () => {
                 padding-top: 0;
             }
 
-            body { 
+            body, p { 
                 font-family: "Noto Sans TC", sans-serif;
                 -webkit-print-color-adjust:exact !important;
                 print-color-adjust:exact !important;
                 font-size: 12px;
+                margin-top: 0;
+                margin-bottom: 8px;
             }
 
             img {
@@ -566,20 +568,20 @@ let setupEditor = () => {
             kbd,
             pre,
             samp {
-                font-size: 10px;
+                font-size: 1em;
             }
 
             tt,
             code,
             samp {
-                font-size: 10px;
+                font-size: 1em;
             }
 
             code,
             tt {
                 padding: .2em .4em;
                 margin: 0;
-                font-size: 10px;
+                font-size: 1em;
                 font-weight: 500;
                 white-space: break-spaces;
                 background-color: #afb8c133;

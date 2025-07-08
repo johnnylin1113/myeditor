@@ -269,14 +269,14 @@
 
 .markdown-body h1 {
   margin-top: 12px;
-  margin-bottom: 8px;
+  margin-bottom: 16px;
   font-weight: 300;
   line-height: 1.0;
   color: #F79646;
 }
 .markdown-body h2 {
   margin-top: 12px;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   font-weight: 500;
   line-height: 1.0;
   color: #F79646;

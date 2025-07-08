@@ -400,6 +400,14 @@ let setupEditor = () => {
             @page:nth(1) {
                 padding-top: 0;
             }
+
+            body { 
+                font-family: "Noto Sans TC", sans-serif;
+                -webkit-print-color-adjust:exact !important;
+                print-color-adjust:exact !important;
+                font-size: 12px;
+            }
+
             img {
                 max-width: 100%;
                 max-height: 100%;
@@ -429,7 +437,7 @@ let setupEditor = () => {
             h1 {
                 margin-top: 24px;
                 margin-bottom: 16px;
-                font-size: 20px;
+                font-size: 2em;
                 font-weight: 200;
                 line-height: 0.5;
                 color: #F79646;
@@ -438,7 +446,7 @@ let setupEditor = () => {
             h2 {
                 margin-top: 24px;
                 margin-bottom: 16px;
-                font-size: 14px;
+                font-size: 1.4em;
                 font-weight: 400;
                 line-height: 0.5;
                 color: #F79646;
@@ -447,7 +455,7 @@ let setupEditor = () => {
             h3 {
                 margin-top: 24px;
                 margin-bottom: 16px;
-                font-size: 12px;
+                font-size: 1.2em;
                 font-weight: 600;
                 line-height: 0.5;
                 color:rgb(0, 0, 0);
@@ -455,7 +463,7 @@ let setupEditor = () => {
             h4 {
                 margin-top: 24px;
                 margin-bottom: 16px;
-                font-size: 12px;
+                font-size: 1.2em;
                 font-weight: 400;
                 line-height: 0.5;
                 color:rgb(0, 0, 0);
@@ -463,7 +471,7 @@ let setupEditor = () => {
             h5 {
                 margin-top: 24px;
                 margin-bottom: 16px;
-                font-size: 8px;
+                font-size: 0.8em;
                 font-weight: 600;
                 line-height: 0.5;
                 color:rgb(0, 0, 0);
@@ -471,7 +479,7 @@ let setupEditor = () => {
             h6 {
                 margin-top: 24px;
                 margin-bottom: 16px;
-                font-size: 8px;
+                font-size: 0.8em;
                 font-weight: 400;
                 font-style: italic;
                 line-height: 0.5;
@@ -481,14 +489,6 @@ let setupEditor = () => {
             table th {
                 font-weight: 400;
             }
-
-            body { 
-                font-family: "Noto Sans TC", sans-serif;
-                -webkit-print-color-adjust:exact !important;
-                print-color-adjust:exact !important;
-                font-size: 10px;
-            }
-            
             
             table th,
             table td {

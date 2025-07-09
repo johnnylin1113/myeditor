@@ -451,7 +451,7 @@ let setupEditor = () => {
                 color:rgb(0, 0, 0);
             }
             h6 {
-                margin-top: 10px;
+                margin-top: 0px;
                 margin-bottom: 5px;
                 font-size: 0.8em;
                 font-weight: 400;

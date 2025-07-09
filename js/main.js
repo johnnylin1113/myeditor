@@ -326,7 +326,7 @@ let setupEditor = () => {
         const verInfo = document.getElementById('verInfo').textContent;
             return `
 <!DOCTYPE html>
-<!--Ver: ${verInfo}-->
+<!--${verInfo}-->
 <html>
 <head>
     <title>${dateString}</title>

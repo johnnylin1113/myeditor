@@ -259,23 +259,6 @@ let setupEditor = () => {
         }, 1000)
     };
 
-    let notifyPreview = () => {
-        let labelElement = document.querySelector("#preview-button a");
-        labelElement.innerHTML = "Previewing!";
-        setTimeout(() => {
-            labelElement.innerHTML = "Preview Now";
-        }, 1000)
-    };
-
-    let switchView = () => {
-        let labelElement = document.querySelector("#switch-view-button a");
-        if (labelElement.innerHTML === "View switch: landscape") {
-            labelElement.innerHTML = "View switch: portrait";
-        } else {
-            labelElement.innerHTML = "View switch: landscape";
-        }
-    };
-
     // ----- setup -----
 
     // setup navigation actions
@@ -285,20 +268,6 @@ let setupEditor = () => {
             reset();
         });
     };
-    
-    let getDateTimeString = () => {
-        const now = new Date();
-
-        const pad = (n) => n.toString().padStart(2, '0');
-
-        const year = now.getFullYear().toString().slice(-2); // YY
-        const month = pad(now.getMonth() + 1);               // MM (0-based)
-        const day = pad(now.getDate());                      // DD
-        const hours = pad(now.getHours());                   // HH
-        const minutes = pad(now.getMinutes());               // MM
-
-    return `${year}${month}${day}_${hours}${minutes}`;
-    }
   
     let setupPreviewButton = (editor) => {
         let labelElement = document.querySelector("#switch-view-button a");
@@ -354,9 +323,10 @@ let setupEditor = () => {
     };
 
     let generatePDFHtml = (dateString, viewMode, tableFontSize, content) => {
+        const verInfo = document.getElementById('verInfo').textContent;
             return `
 <!DOCTYPE html>
-<! -- 250708 V4-->
+<!--Ver: ${verInfo}-->
 <html>
 <head>
     <title>${dateString}</title>
@@ -906,6 +876,29 @@ let setupEditor = () => {
         });
     };
 
+    let readVersionFromFile = () => {
+        return fetch('version.info')
+            .then(response => {
+                if (!response.ok) throw new Error(`Failed to fetch version.info: ${response.status}`);
+                return response.text();
+            })
+            .then(text => text.trim())
+            .catch(err => {
+                console.error('Error reading version file:', err);
+                alert('Failed to read version.info');
+                return 'unknown';
+            });
+    };
+
+    let updateVersion = () => {
+        const verInfoDiv = document.getElementById('verInfo');
+        readVersionFromFile().then(verInfo => {
+            if (verInfoDiv) {
+                verInfoDiv.textContent = `Ver: ${verInfo}`;
+            }
+        });
+    };
+
     // ----- local state -----
 
     let loadLastContent = () => {
@@ -1021,6 +1014,7 @@ let setupEditor = () => {
     setupImageAddButton(editor);
     setupPreviewButton(editor);
     setupLPreviewButton(editor);
+    updateVersion();
 
 
     let scrollBarSettings = loadScrollBarSettings() || false;

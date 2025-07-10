@@ -162,6 +162,142 @@ let setupEditor = () => {
             foldingImportsByDefault: true,
         });
 
+        // listen drag and drop event
+        const editorContainer = editor.getDomNode();
+
+        // Prevent default drag behavior
+        editorContainer.addEventListener('dragover', (event) => {
+            event.preventDefault();
+        });
+
+        // Handle drop event
+        editorContainer.addEventListener('drop', async (event) => {
+            event.preventDefault();
+
+            const files = event.dataTransfer?.files;
+            if (!files || files.length === 0) return;
+
+            for (let file of files) {
+                if (file.type.startsWith('image/')) {
+                    await uploadImage(file, editor);
+                }
+            }
+        });
+
+        // 👇 Paste handler setup
+        const hiddenInput = document.getElementById('clipboard-catcher');
+
+        window.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'v') {
+                hiddenInput.focus(); // Move focus to hidden input so paste works
+            }
+        });
+
+        hiddenInput.addEventListener('paste', async (event) => {
+            const items = event.clipboardData?.items;
+            if (!items) return;
+
+            for (let item of items) {
+                if (item.type.startsWith('image/')) {
+                    const file = item.getAsFile();
+                    await uploadImage(file, editor); // your image upload logic
+                    event.preventDefault();
+                    break;
+                }
+            }
+
+            // Return focus to Monaco
+            setTimeout(() => editor.focus(), 100);
+        });
+
+
+        async function uploadImage(file, editor) {
+            const imgbbApiKey = 'a4d9801643097efbb1d2f64708cac602';
+        
+            // Create overlay loader
+            const overlay = document.createElement('div');
+            overlay.innerHTML = `
+                <div style="
+                    position: fixed;
+                    top: 0; left: 0;
+                    width: 100vw; height: 100vh;
+                    background: rgba(0, 0, 0, 0.5);
+                    z-index: 9999;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                ">
+                    <img src="https://i.pinimg.com/originals/f8/f9/c1/f8f9c18d14f4affd79c09017591e096f.gif" alt="Loading..." style="width: 200px; height: 150px; border-radius: 20px; background: #FFFFFF;" />
+                </div>
+            `;
+            overlay.style.display = 'none';
+            document.body.appendChild(overlay);
+            
+            const showOverlay = () => { overlay.style.display = 'flex'; };
+            const hideOverlay = () => { overlay.style.display = 'none'; };
+            // upload file
+            try {
+                showOverlay();
+
+                // Read file as base64
+                const base64Data = await new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = () => resolve(reader.result.split(',')[1]); // Remove data:image/...;base64,
+                    reader.onerror = reject;
+                    reader.readAsDataURL(file);
+                });
+
+                // Prepare form data
+                const formData = new FormData();
+                formData.append('key', imgbbApiKey);
+                formData.append('image', base64Data);
+
+                // Upload to imgbb
+                const response = await fetch('https://api.imgbb.com/1/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (!result.success) {
+                    throw new Error('Upload failed');
+                }
+
+                const imageUrl = result.data.url;
+                const fileName = file.name || 'pasted-image';
+
+                // Create markdown with HTML figure block
+                const markdownImage = `<img src="${imageUrl}" alt="${fileName}" width="auto">`;
+
+                // Insert into editor at cursor
+                const selection = editor.getSelection();
+                const insertOp = {
+                    range: selection,
+                    text: markdownImage,
+                    forceMoveMarkers: true
+                };
+
+                editor.executeEdits("insert-image", [insertOp]);
+
+                // Move cursor after inserted block
+                const linesInserted = markdownImage.split('\n').length;
+                const newPosition = {
+                    lineNumber: selection.endLineNumber + linesInserted,
+                    column: 1
+                };
+
+                editor.setPosition(newPosition);
+                editor.focus();
+
+            } catch (err) {
+                console.error('Image upload failed:', err);
+                alert('Failed to upload image. Please try again.');
+            } finally {
+                hideOverlay();
+            }
+        }
+
         setTimeout(() => {
             editor.getAction('editor.foldAllMarkerRegions').run();
         }, 500);

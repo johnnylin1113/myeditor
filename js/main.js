@@ -184,12 +184,13 @@ let setupEditor = () => {
             }
         });
 
-        // 👇 Paste handler setup
+        // Paste handler setup
         const hiddenInput = document.getElementById('clipboard-catcher');
 
         window.addEventListener('keydown', (e) => {
             if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'v') {
-                hiddenInput.focus(); // Move focus to hidden input so paste works
+                hiddenInput.value = ''; // clear previous value
+                hiddenInput.focus();    // redirect paste into hidden input
             }
         });
 
@@ -197,17 +198,37 @@ let setupEditor = () => {
             const items = event.clipboardData?.items;
             if (!items) return;
 
+            let isImage = false;
+
             for (let item of items) {
                 if (item.type.startsWith('image/')) {
                     const file = item.getAsFile();
-                    await uploadImage(file, editor); // your image upload logic
+                    await uploadImage(file, editor); // your upload logic
+                    isImage = true;
                     event.preventDefault();
                     break;
                 }
             }
 
-            // Return focus to Monaco
+            // If not image, treat as text paste
+            if (!isImage) {
+                // Wait a moment to let hiddenInput receive the text
+                setTimeout(() => {
+                    const pastedText = hiddenInput.value;
+                    if (pastedText && pastedText.trim()) {
+                        const selection = editor.getSelection();
+                        editor.executeEdits("paste-text", [{
+                            range: selection,
+                            text: pastedText,
+                            forceMoveMarkers: true
+                        }]);
+                    }
+                    editor.focus();
+                }, 10);
+            } else {
+                // Image handled, just refocus
             setTimeout(() => editor.focus(), 100);
+            }
         });
 
 

@@ -105,12 +105,23 @@ let setupEditor = () => {
                 const ranges = [];
 
                 for (let i = 0; i < lines.length; i++) {
-                    if (lines[i].includes('<!-- #start of image raw -->')) {
+                    // Normalize line for case-insensitive comparison
+                    const line = lines[i].toLowerCase();
+
+                    let isImageStart = line.includes('<!-- #start of image raw -->');
+                    let isFoldableStart = line.includes('<!-- #start of foldable area -->');
+
+                    if (isImageStart || isFoldableStart) {
                         let start = i + 1;
                         let end = start;
 
-                        // Find end
-                        while (end < lines.length && !lines[end].includes('<!-- #end of image raw -->')) {
+                        // Determine matching end tag
+                        const endTag = isImageStart
+                            ? '<!-- #end of image raw -->'
+                            : '<!-- #end of foldable area -->';
+
+                        // Find the closing tag
+                        while (end < lines.length && !lines[end].toLowerCase().includes(endTag)) {
                             end++;
                         }
 
@@ -121,6 +132,9 @@ let setupEditor = () => {
                                 kind: monaco.languages.FoldingRangeKind.Region
                             });
                         }
+
+                        // Skip ahead to avoid nested match
+                        i = end;
                     }
                 }
 
@@ -818,6 +832,39 @@ let setupEditor = () => {
         });
     };
 
+    let setupFoldableButton = (editor) => {
+        const foldableButton = document.querySelector("#add-foldable-button");
+
+        foldableButton.addEventListener('click', (event) => {
+            event.preventDefault();
+
+            // Prepare the markdown block to insert
+            const markdownBlock = [
+                '<!-- #start of foldable area -->',
+                '   Put your content here.',
+                '<!-- #end of Foldable area -->'
+            ].join('\n');
+
+            // Get the current selection
+            const selection = editor.getSelection();
+
+            // Create insert operation
+            const insertOp = {
+                range: selection,
+                text: markdownBlock,
+                forceMoveMarkers: true
+            };
+
+            // Execute the edit
+            editor.executeEdits("insert-foldable", [insertOp]);
+
+            // Move cursor to line after inserted block
+            const endLine = selection.endLineNumber + 3;
+            editor.setPosition({ lineNumber: endLine, column: 1 });
+            editor.focus();
+        });
+    };
+
     let setupMeetingNoteTemplateButton = (editor, defaultInput, confirmationMessage = "Replace current content with the meeting template?") => {
         const templateButton = document.querySelector("#meeting-note-template-button"); // Button to insert template
 
@@ -1012,6 +1059,7 @@ let setupEditor = () => {
     setupMeetingNoteTemplateButton(editor);
     setupImageUploadButton(editor);
     setupImageAddButton(editor);
+    setupFoldableButton(editor);
     setupPreviewButton(editor);
     setupLPreviewButton(editor);
     updateVersion();

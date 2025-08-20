@@ -1025,6 +1025,38 @@ let setupEditor = () => {
         });
     };
 
+    let setupCommentButton = (editor) => {
+        const commentButton = document.querySelector("#add-comment-button");
+
+        commentButton.addEventListener('click', (event) => {
+            event.preventDefault();
+
+            // Prepare the markdown block to insert
+            const markdownBlock = [
+                '<!-- Comment Here -->',
+                ""
+            ].join('\n');
+
+            // Get the current selection
+            const selection = editor.getSelection();
+
+            // Create insert operation
+            const insertOp = {
+                range: selection,
+                text: markdownBlock,
+                forceMoveMarkers: true
+            };
+
+            // Execute the edit
+            editor.executeEdits("insert-comment", [insertOp]);
+
+            // Move cursor to line after inserted block
+            const endLine = selection.endLineNumber + 1;
+            editor.setPosition({ lineNumber: endLine, column: 1 });
+            editor.focus();
+        });
+    };
+
     let setupMeetingNoteTemplateButton = (editor, defaultInput, confirmationMessage = "Replace current content with the meeting template?") => {
         const templateButton = document.querySelector("#meeting-note-template-button"); // Button to insert template
 
@@ -1220,6 +1252,7 @@ let setupEditor = () => {
     setupImageUploadButton(editor);
     setupImageAddButton(editor);
     setupFoldableButton(editor);
+    setupCommentButton(editor);
     setupPreviewButton(editor);
     setupLPreviewButton(editor);
     updateVersion();
